@@ -19,7 +19,7 @@ Steps to change from main branch of Robocomp to the experimental highly_unstable
 	#We have to tick the checkbox that says PYTHON_BINDINGS or something along the lines
 	make -j4 #4 jobs in parallel
 	sudo make install 
-##4.1.- If the boost python library is missing (cmake-gui gives away an error)
+## 4.1.- If the boost python library is missing (cmake-gui gives away an error)
 	$ sudo aptitude install libboost-python-dev
 	//All the steps on the fourth step
 Aaaaand you're done.
