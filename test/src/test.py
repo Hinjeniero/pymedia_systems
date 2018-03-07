@@ -20,7 +20,7 @@
 #    along with RoboComp.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# \mainpage RoboComp::overseer
+# \mainpage RoboComp::test
 #
 # \section intro_sec Introduction
 #
@@ -48,7 +48,7 @@
 #
 # \subsection execution_ssec Execution
 #
-# Just: "${PATH_TO_BINARY}/overseer --Ice.Config=${PATH_TO_CONFIG_FILE}"
+# Just: "${PATH_TO_BINARY}/test --Ice.Config=${PATH_TO_CONFIG_FILE}"
 #
 # \subsection running_ssec Once running
 #
@@ -79,9 +79,6 @@ if len(ROBOCOMP) < 1:
 preStr = "-I" + ROBOCOMP + "/interfaces/ -I/opt/robocomp/interfaces/ --all " + ROBOCOMP + "/interfaces/"
 Ice.loadSlice(preStr + "CommonBehavior.ice")
 import RoboCompCommonBehavior
-
-Ice.loadSlice(preStr + "OmniRobot.ice")
-import RoboCompOmniRobot
 
 Ice.loadSlice(preStr + "RCISMousePicker.ice")
 import RoboCompRCISMousePicker
@@ -118,7 +115,7 @@ class CommonBehaviorI(RoboCompCommonBehavior.CommonBehavior):
 
 
 if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
+    app = QtCore.QCoreApplication(sys.argv)
     params = copy.deepcopy(sys.argv)
     if len(params) > 1:
         if not params[1].startswith('--Ice.Config='):
@@ -130,59 +127,44 @@ if __name__ == '__main__':
     mprx = {}
     try:
 
-        # Remote object connection for OmniRobot
+        # Topic Manager
+        proxy = ic.getProperties().getProperty("TopicManager.Proxy")
+        obj = ic.stringToProxy(proxy)
         try:
-            proxyString = ic.getProperties().getProperty('OmniRobotProxy')
+            topicManager = IceStorm.TopicManagerPrx.checkedCast(obj)
+        except ConnectionRefusedException:
+            raise Exception("STORM not running")
+    except:
+        traceback.print_exc()
+        status = 1
+
+    if status == 0:
+        worker = SpecificWorker(mprx)
+
+        RCISMousePicker_adapter = ic.createObjectAdapter("RCISMousePickerTopic")
+        rcismousepickerI_ = RCISMousePickerI(worker)
+        rcismousepicker_proxy = RCISMousePicker_adapter.addWithUUID(rcismousepickerI_).ice_oneway()
+
+        subscribeDone = False
+        while not subscribeDone:
             try:
-                basePrx = ic.stringToProxy(proxyString)
-                omnirobot_proxy = RoboCompOmniRobot.OmniRobotPrx.checkedCast(basePrx)
-                mprx["OmniRobotProxy"] = omnirobot_proxy
-            except Ice.Exception:
-                print 'Cannot connect to the remote object (OmniRobot)', proxyString
-                # traceback.print_exc()
-                status = 1
-        except Ice.Exception, e:
-            print e
-            print 'Cannot get OmniRobotProxy property.'
+                rcismousepicker_topic = topicManager.retrieve("RCISMousePicker")
+                subscribeDone = True
+            except Ice.Exception, e:
+                print "Error. Topic does not exist (yet)"
+                status = 0
+                time.sleep(1)
+        qos = {}
+        rcismousepicker_topic.subscribeAndGetPublisher(qos, rcismousepicker_proxy)
+        RCISMousePicker_adapter.activate()
+
+        #		adapter.add(CommonBehaviorI(<LOWER>I, ic), ic.stringToIdentity('commonbehavior'))
+
+        app.exec_()
+
+    if ic:
+        try:
+            ic.destroy()
+        except:
+            traceback.print_exc()
             status = 1
-            # Topic Manager
-            proxy = ic.getProperties().getProperty("TopicManager.Proxy")
-            obj = ic.stringToProxy(proxy)
-            try:
-                topicManager = IceStorm.TopicManagerPrx.checkedCast(obj)
-            except ConnectionRefusedException:
-                raise Exception("STORM not running")
-    except:
-        traceback.print_exc()
-        status = 1
-
-if status == 0:
-    worker = SpecificWorker(mprx)
-
-    RCISMousePicker_adapter = ic.createObjectAdapter("RCISMousePickerTopic")
-    rcismousepickerI_ = RCISMousePickerI(worker)
-    rcismousepicker_proxy = RCISMousePicker_adapter.addWithUUID(rcismousepickerI_).ice_oneway()
-
-    subscribeDone = False
-    while not subscribeDone:
-        try:
-            rcismousepicker_topic = topicManager.retrieve("RCISMousePicker")
-            subscribeDone = True
-        except Ice.Exception, e:
-            print "Error. Topic does not exist (yet)"
-            status = 0
-            time.sleep(1)
-    qos = {}
-    rcismousepicker_topic.subscribeAndGetPublisher(qos, rcismousepicker_proxy)
-    RCISMousePicker_adapter.activate()
-
-    #		adapter.add(CommonBehaviorI(<LOWER>I, ic), ic.stringToIdentity('commonbehavior'))
-
-    app.exec_()
-
-if ic:
-    try:
-        ic.destroy()
-    except:
-        traceback.print_exc()
-        status = 1

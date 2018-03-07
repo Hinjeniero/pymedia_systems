@@ -1,0 +1,3 @@
+/home/hinjeniero/pymedia_systems/overseer/CMakeFiles/edit_cache.dir
+/home/hinjeniero/pymedia_systems/overseer/CMakeFiles/rebuild_cache.dir
+/home/hinjeniero/pymedia_systems/overseer/CMakeFiles/ui_mainUI.dir

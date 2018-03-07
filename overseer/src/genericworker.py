@@ -16,60 +16,43 @@
 #    You should have received a copy of the GNU General Public License
 #    along with RoboComp.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, Ice, os
-from PySide import QtGui, QtCore
+import sys
+from PySide import *
 
-ROBOCOMP = ''
 try:
-	ROBOCOMP = os.environ['ROBOCOMP']
-except KeyError:
-	print '$ROBOCOMP environment variable not set, using the default value /opt/robocomp'
-	ROBOCOMP = '/opt/robocomp'
-
-preStr = "-I/opt/robocomp/interfaces/ -I"+ROBOCOMP+"/interfaces/ --all /opt/robocomp/interfaces/"
-Ice.loadSlice(preStr+"CommonBehavior.ice")
-import RoboCompCommonBehavior
-
-additionalPathStr = ''
-icePaths = [ '/opt/robocomp/interfaces' ]
-try:
-	SLICE_PATH = os.environ['SLICE_PATH'].split(':')
-	for p in SLICE_PATH:
-		icePaths.append(p)
-		additionalPathStr += ' -I' + p + ' '
-	icePaths.append('/opt/robocomp/interfaces')
+    from ui_mainUI import *
 except:
-	print 'SLICE_PATH environment variable was not exported. Using only the default paths'
-	pass
+    print "Can't import UI file. Did you run 'make'?"
+    sys.exit(-1)
 
 
+class GenericWorker(QtGui.QWidget):
+    kill = QtCore.Signal()
+
+    def __init__(self, mprx):
+        super(GenericWorker, self).__init__()
+
+        self.omnirobot_proxy = mprx["OmniRobotProxy"]
+
+        self.ui = Ui_guiDlg()
+        self.ui.setupUi(self)
+        self.show()
+
+        self.mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
+        self.Period = 30
+        self.timer = QtCore.QTimer(self)
 
 
+    @QtCore.Slot()
+    def killYourSelf(self):
+        rDebug("Killing myself")
+        self.kill.emit()
 
-class GenericWorker(QtCore.QObject):
-	kill = QtCore.Signal()
+    # \brief Change compute period
+    # @param per Period in ms
+    @QtCore.Slot(int)
+    def setPeriod(self, p):
+        print "Period changed", p
+        Period = p
+        timer.start(Period)
 
-
-	def __init__(self, mprx):
-		super(GenericWorker, self).__init__()
-
-
-
-
-		self.mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
-		self.Period = 30
-		self.timer = QtCore.QTimer(self)
-
-
-	@QtCore.Slot()
-	def killYourSelf(self):
-		rDebug("Killing myself")
-		self.kill.emit()
-
-	# \brief Change compute period
-	# @param per Period in ms
-	@QtCore.Slot(int)
-	def setPeriod(self, p):
-		print "Period changed", p
-		Period = p
-		timer.start(Period)

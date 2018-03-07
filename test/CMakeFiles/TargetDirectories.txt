@@ -1,0 +1,2 @@
+/home/hinjeniero/pymedia_systems/test/CMakeFiles/edit_cache.dir
+/home/hinjeniero/pymedia_systems/test/CMakeFiles/rebuild_cache.dir
