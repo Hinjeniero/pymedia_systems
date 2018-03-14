@@ -1,4 +1,4 @@
-import "/robocomp/interfaces/IDSLs/RCISMousePicker.idsl";
+import "RCISMousePicker.idsl";
 
 Component test
 {
