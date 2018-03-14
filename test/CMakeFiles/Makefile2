@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hinjeniero/pymedia_systems/test
+CMAKE_SOURCE_DIR = /home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hinjeniero/pymedia_systems/test
+CMAKE_BINARY_DIR = /home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test
 
 #=============================================================================
 # Special targets to cleanup operation of make.
