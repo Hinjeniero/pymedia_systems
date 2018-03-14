@@ -54,6 +54,30 @@ if not ice_RCISMousePicker:
 	print 'Couln\'t load RCISMousePicker'
 	sys.exit(-1)
 from RoboCompRCISMousePicker import *
+ice_OmniRobot = False
+for p in icePaths:
+	if os.path.isfile(p+'/OmniRobot.ice'):
+		preStr = "-I/opt/robocomp/interfaces/ -I"+ROBOCOMP+"/interfaces/ " + additionalPathStr + " --all "+p+'/'
+		wholeStr = preStr+"OmniRobot.ice"
+		Ice.loadSlice(wholeStr)
+		ice_OmniRobot = True
+		break
+if not ice_OmniRobot:
+	print 'Couln\'t load OmniRobot'
+	sys.exit(-1)
+from RoboCompOmniRobot import *
+ice_GenericBase = False
+for p in icePaths:
+	if os.path.isfile(p+'/GenericBase.ice'):
+		preStr = "-I/opt/robocomp/interfaces/ -I"+ROBOCOMP+"/interfaces/ " + additionalPathStr + " --all "+p+'/'
+		wholeStr = preStr+"GenericBase.ice"
+		Ice.loadSlice(wholeStr)
+		ice_GenericBase = True
+		break
+if not ice_GenericBase:
+	print 'Couln\'t load GenericBase'
+	sys.exit(-1)
+from RoboCompGenericBase import *
 
 
 from rcismousepickerI import *
@@ -67,6 +91,7 @@ class GenericWorker(QtCore.QObject):
 		super(GenericWorker, self).__init__()
 
 
+		self.omnirobot_proxy = mprx["OmniRobotProxy"]
 
 
 		self.mutex = QtCore.QMutex(QtCore.QMutex.Recursive)

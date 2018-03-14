@@ -1,9 +1,11 @@
 import "RCISMousePicker.idsl";
+import "OmniRobot.idsl";
 
-Component test
+Component overseer
 {
 	Communications
 	{
+		requires OmniRobot;
 		subscribesTo RCISMousePicker;
 	};
 	language Python;

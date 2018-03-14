@@ -53,6 +53,18 @@ if not ice_RCISMousePicker:
 	print 'Couldn\'t load RCISMousePicker'
 	sys.exit(-1)
 from RoboCompRCISMousePicker import *
+ice_OmniRobot = False
+for p in icePaths:
+	if os.path.isfile(p+'/OmniRobot.ice'):
+		preStr = "-I/opt/robocomp/interfaces/ -I"+ROBOCOMP+"/interfaces/ " + additionalPathStr + " --all "+p+'/'
+		wholeStr = preStr+"OmniRobot.ice"
+		Ice.loadSlice(wholeStr)
+		ice_OmniRobot = True
+		break
+if not ice_OmniRobot:
+	print 'Couldn\'t load OmniRobot'
+	sys.exit(-1)
+from RoboCompOmniRobot import *
 
 class RCISMousePickerI(RCISMousePicker):
 	def __init__(self, worker):

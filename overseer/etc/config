@@ -1,11 +1,14 @@
 # Endpoints for subscriptions
-RCISMousePickerTopic.Endpoints=tcp -p 15000
+RCISMousePickerTopic.Endpoints=tcp -p 11000 
+
+
+# Proxies for required interfaces
+OmniRobotProxy = omnirobot:tcp -h localhost -p 10004
+
 
 
 # This property is used by the clients to connect to IceStorm.
 TopicManager.Proxy=IceStorm/TopicManager:default -p 9999
-
-
 
 
 Ice.Warn.Connections=0
