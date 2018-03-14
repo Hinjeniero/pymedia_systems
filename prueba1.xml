@@ -1,0 +1,98 @@
+<innerModel>
+	<transform id="world">
+		
+		<transform id="target2" tx="0" ty="0" tz="0"> 
+			<plane id="target2x" px="0.25" nx="1" size="10,10,500" repeat="1" texture="#ff0000" />
+			<plane id="target2y" py="0.25" nx="1" size="10,500,10" repeat="1" texture="#00ff00" />
+			<plane id="target2z" pz="0.25" nx="1" size="500,10,10" repeat="1" texture="#0000ff" />
+		</transform>	
+		
+		<transform id="floor">
+			
+			<mesh  id="pabellonInformatica" file="/home/robocomp/robocomp/files/osgModels/edificios/pabellon_informatica_nodoors.osgb"  tx="0" ty="0" tz="0" rx="1.57079632679" scale="500" />
+		
+			<differentialrobot id="base1" port="10004">
+			<!-- HUMANS -->
+				<!-- waist -->
+				<transform id="human1" tx="3600" ty="0" tz="-100" ry="3.14">
+					<translation id="robotBody1" tx="0" ty="0" tz="0">
+						<mesh id="base_mesh1" file="/home/hinjeniero/robocomp/files/innermodel/lego/lego.osg"   scale="8" rx="1.57079632679" rz="-1.57079632679" ty="0" tz="0"/>
+				</translation>
+			</transform>
+			</differentialrobot>
+			
+			<differentialrobot id="base2" port="10005">
+			<!-- HUMANS -->
+			<!-- waist -->
+				<transform id="human2" tx="1400" ty="0" tz="1200" ry="3.14">
+					<translation id="robotBody2" tx="0" ty="0" tz="100">
+						<mesh id="base_mesh2" file="/home/hinjeniero/robocomp/files/innermodel/mujer/mujer.osg"   scale="8" rx="1.57079632679" rz="-1.57079632679" ty="0" tz="0"/>
+				</translation>
+				</transform>
+			</differentialrobot>
+		</transform>
+			
+	  	<!-- CAMERAS -->
+
+		<transform id="cameraAxis1" tx="21182.2" ty="1694.11" tz="4144.37" rx="-0.25" ry="3.14">
+			<plane id="cam1x" px="1000" nx="1" size="10,10,400" repeat="1" texture="#ff0000" />
+			<plane id="cam1y" py="1000" nx="1" size="10,400,10" repeat="1" texture="#00ff00" />
+			<plane id="cam1z" pz="1000" nx="1" size="400,10,10" repeat="1" texture="#0000ff" />
+                        <plane id="camBody1" pz="-10" nz="1" size="200,200,20" repeat="1" texture="#f00fff" />
+			<rgbd id="camera1" focal="480" width="640" height="480" port="10097" noise="0.00" ifconfig="40000,50000" />
+		</transform>
+				
+		<transform id="cameraAxis2" tx="18593.9" ty="1572.54" tz="9.14416" rx="0.25"> 
+			<plane id="cam2x" px="1000" nx="1" size="10,10,800" repeat="1" texture="#ff0000" />
+			<plane id="cam2y" py="1000" nx="1" size="10,800,10" repeat="1" texture="#00ff00" /> 
+			<plane id="cam2z" pz="1000" nx="1" size="800,10,10" repeat="1" texture="#0000ff" />
+			<plane id="camBody2" pz="-10" nz="1" size="200,200,20" repeat="1" texture="#00ffff" />
+			<rgbd id="camera2" focal="480" width="640" height="480" port="10097" noise="0.00" ifconfig="40000,50000" />
+		</transform>
+
+		<transform id="cameraAxis3" tx="16666.4" ty="1602.85" tz="4144.37" rx="-0.25" ry="3.14">
+			<plane id="cam3x" px="1000" nx="1" size="10,10,400" repeat="1" texture="#ff0000" />
+			<plane id="cam3y" py="1000" nx="1" size="10,400,10" repeat="1" texture="#00ff00" />
+			<plane id="cam3z" pz="1000" nx="1" size="400,10,10" repeat="1" texture="#0000ff" />
+                        <plane id="camBody3" pz="-10" nz="1" size="200,200,20" repeat="1" texture="#f00fff" />
+			<rgbd id="camera3" focal="480" width="640" height="480" port="10097" noise="0.00" ifconfig="40000,50000" />
+		</transform>
+
+		<transform id="cameraAxis4" tx="13157.5" ty="1434.83" tz="9.14403" rx="0.25"> 
+			<plane id="cam4x" px="1000" nx="1" size="10,10,800" repeat="1" texture="#ff0000" />
+			<plane id="cam4y" py="1000" nx="1" size="10,800,10" repeat="1" texture="#00ff00" /> 
+			<plane id="cam4z" pz="1000" nx="1" size="800,10,10" repeat="1" texture="#0000ff" />
+			<plane id="camBody4" pz="-10" nz="1" size="200,200,20" repeat="1" texture="#00ffff" />
+			<rgbd id="camera4" focal="480" width="640" height="480" port="10097" noise="0.00" ifconfig="40000,50000" />
+		</transform>
+
+		<transform id="cameraAxis5" tx="251.358.2" ty="1700" tz="3655.36" rx="-0.25" ry="-1.90" rz="-0.25">
+			<plane id="cam5x" px="1000" nx="1" size="10,10,400" repeat="1" texture="#ff0000" />
+			<plane id="cam5y" py="1000" nx="1" size="10,400,10" repeat="1" texture="#00ff00" />
+			<plane id="cam5z" pz="1000" nx="1" size="400,10,10" repeat="1" texture="#0000ff" />
+                        <plane id="camBody5" pz="-10" nz="1" size="200,200,20" repeat="1" texture="#f00fff" />
+			<rgbd id="camera5" focal="480" width="640" height="480" port="10097" noise="0.00" ifconfig="40000,50000" />
+		</transform>
+		
+		<transform id="cameraAxis6" tx="2952.19" ty="1700" tz="479.841" rx="0.25" ry="1" rz="-0.25"> 
+			<plane id="cam6x" px="1000" nx="1" size="10,10,800" repeat="1" texture="#ff0000" />
+			<plane id="cam6y" py="1000" nx="1" size="10,800,10" repeat="1" texture="#00ff00" /> 
+			<plane id="cam6z" pz="1000" nx="1" size="800,10,10" repeat="1" texture="#0000ff" />
+			<plane id="camBody6" pz="-10" nz="1" size="200,200,20" repeat="1" texture="#00ffff" />
+			<rgbd id="camera6" focal="480" width="640" height="480" port="10097" noise="0.00" ifconfig="40000,50000" />
+		</transform>
+	
+		<transform id="cameraAxis7" tx="-6250" ty="1500" tz="2050"  ry="1.57" >
+		<transform id="cameraAxis7test" rx="0.25">  
+			<plane id="cam7x" px="1000" nx="1" size="10,10,800" repeat="1" texture="#ff0000" />
+			<plane id="cam7y" py="1000" nx="1" size="10,800,10" repeat="1" texture="#00ff00" /> 
+			<plane id="cam7z" pz="1000" nx="1" size="800,10,10" repeat="1" texture="#0000ff" />
+			<plane id="camBody7" pz="-10" nz="1" size="200,200,20" repeat="1" texture="#00ffff" />
+			<rgbd id="camera7" focal="480" width="640" height="480" port="10097" noise="0.00" ifconfig="40000,50000" />
+		</transform>
+		</transform>
+		 
+		
+	</transform>
+</innerModel>
+
