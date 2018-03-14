@@ -1,13 +1,11 @@
-import "/robocomp/interfaces/IDSLs/OmniRobot.idsl";
-import "/robocomp/interfaces/IDSLs/RCISMousePicker.idsl";
+import "RCISMousePicker.idsl";
 
-Component overseer
+Component test
 {
 	Communications
 	{
-		requires OmniRobot;
 		subscribesTo RCISMousePicker;
-	};	
-	gui Qt(QWidget);
+	};
 	language Python;
 };
+

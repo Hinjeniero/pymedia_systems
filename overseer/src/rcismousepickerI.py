@@ -28,11 +28,30 @@ except:
 if len(ROBOCOMP)<1:
 	print 'ROBOCOMP environment variable not set! Exiting.'
 	sys.exit()
-	
 
-preStr = "-I"+ROBOCOMP+"/interfaces/ --all "+ROBOCOMP+"/interfaces/"
+additionalPathStr = ''
+icePaths = []
+try:
+	icePaths.append('/opt/robocomp/interfaces')
+	SLICE_PATH = os.environ['SLICE_PATH'].split(':')
+	for p in SLICE_PATH:
+		icePaths.append(p)
+		additionalPathStr += ' -I' + p + ' '
+except:
+	print 'SLICE_PATH environment variable was not exported. Using only the default paths'
+	pass
 
-Ice.loadSlice(preStr+"RCISMousePicker.ice")
+ice_RCISMousePicker = False
+for p in icePaths:
+	if os.path.isfile(p+'/RCISMousePicker.ice'):
+		preStr = "-I/opt/robocomp/interfaces/ -I"+ROBOCOMP+"/interfaces/ " + additionalPathStr + " --all "+p+'/'
+		wholeStr = preStr+"RCISMousePicker.ice"
+		Ice.loadSlice(wholeStr)
+		ice_RCISMousePicker = True
+		break
+if not ice_RCISMousePicker:
+	print 'Couldn\'t load RCISMousePicker'
+	sys.exit(-1)
 from RoboCompRCISMousePicker import *
 
 class RCISMousePickerI(RCISMousePicker):
@@ -41,8 +60,3 @@ class RCISMousePickerI(RCISMousePicker):
 
 	def setPick(self, myPick, c):
 		return self.worker.setPick(myPick)
-
-
-
-
-

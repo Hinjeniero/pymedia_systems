@@ -1,3 +1,2 @@
-/home/hinjeniero/pymedia_systems/overseer/CMakeFiles/edit_cache.dir
-/home/hinjeniero/pymedia_systems/overseer/CMakeFiles/rebuild_cache.dir
-/home/hinjeniero/pymedia_systems/overseer/CMakeFiles/ui_mainUI.dir
+/home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test/CMakeFiles/edit_cache.dir
+/home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test/CMakeFiles/rebuild_cache.dir

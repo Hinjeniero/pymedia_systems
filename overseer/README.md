@@ -1,14 +1,14 @@
 ```
 ```
 #
-``` overseer
+``` test
 ```
 Intro to component here
 
 
 ## Configuration parameters
 As any other component,
-``` *overseer* ```
+``` *test* ```
 needs a configuration file to start. In
 
     etc/config
@@ -23,7 +23,7 @@ To avoid changing the *config* file in the repository, we can copy it to the com
 
     cd
 
-``` <overseer 's path> ```
+``` <test 's path> ```
 
     cp etc/config config
     
@@ -31,6 +31,6 @@ After editing the new config file we can run the component:
 
     bin/
 
-```overseer ```
+```test ```
 
     --Ice.Config=config

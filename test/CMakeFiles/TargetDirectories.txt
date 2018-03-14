@@ -1,2 +1,0 @@
-/home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test/CMakeFiles/edit_cache.dir
-/home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test/CMakeFiles/rebuild_cache.dir

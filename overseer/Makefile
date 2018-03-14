@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hinjeniero/pymedia_systems/overseer
+CMAKE_SOURCE_DIR = /home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hinjeniero/pymedia_systems/overseer
+CMAKE_BINARY_DIR = /home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hinjeniero/pymedia_systems/overseer/CMakeFiles /home/hinjeniero/pymedia_systems/overseer/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test/CMakeFiles /home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hinjeniero/pymedia_systems/overseer/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/salabeta/robocomp/components/sistemasMultimedia/pymedia_systems/test/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -110,19 +110,6 @@ depend:
 	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named ui_mainUI
-
-# Build rule for target.
-ui_mainUI: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ui_mainUI
-.PHONY : ui_mainUI
-
-# fast build rule for target.
-ui_mainUI/fast:
-	$(MAKE) -f CMakeFiles/ui_mainUI.dir/build.make CMakeFiles/ui_mainUI.dir/build
-.PHONY : ui_mainUI/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -131,7 +118,6 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... ui_mainUI"
 .PHONY : help
 
 
