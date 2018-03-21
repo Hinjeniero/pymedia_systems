@@ -86,18 +86,12 @@ from rcismousepickerI import *
 class GenericWorker(QtCore.QObject):
 	kill = QtCore.Signal()
 
-
 	def __init__(self, mprx):
 		super(GenericWorker, self).__init__()
-
-
 		self.omnirobot_proxy = mprx["OmniRobotProxy"]
-
-
 		self.mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
 		self.Period = 30
 		self.timer = QtCore.QTimer(self)
-
 
 	@QtCore.Slot()
 	def killYourSelf(self):

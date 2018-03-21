@@ -23,10 +23,10 @@ from PySide import QtGui, QtCore
 from genericworker import *
 
 # If RoboComp was compiled with Python bindings you can use InnerModel in Python
-# sys.path.append('/opt/robocomp/lib')
-# import librobocomp_qmat
-# import librobocomp_osgviewer
-# import librobocomp_innermodel
+sys.path.append('/opt/robocomp/lib')
+import librobocomp_qmat
+import librobocomp_osgviewer
+import librobocomp_innermodel
 
 class SpecificWorker(GenericWorker):
 	def __init__(self, proxy_map):
@@ -36,22 +36,31 @@ class SpecificWorker(GenericWorker):
 		self.timer.start(self.Period)
 
 	def setParams(self, params):
-		#try:
-		#	self.innermodel = InnerModel(params["InnerModelPath"])
-		#except:
-		#	traceback.print_exc()
-		#	print "Error reading config params"
+		try:
+			#self.innermodel = InnerModel(params["InnerModelPath"])
+			self.innermodel = librobocomp_innermodel.InnerModel("/home/salabeta/robocomp/files/innermodel/prueba1.xml")
+		except:
+			traceback.print_exc()
+			print "Error reading config params"
 		return True
 
 	@QtCore.Slot()
 	def compute(self):
 		print 'SpecificWorker.compute...'
+		state = self.omnirobot_proxy.getBaseState()
+		print(state.x)
+		print(state.alpha)
+		print(state.z)
+		self.innermodel.updateTransformValues("base1", state.x, 0, state.z, 0, state.alpha, 0)
+		print(state.x)
+		print(state.alpha)
+		print(state.z)
 		#computeCODE
-		#try:
-		#	self.differentialrobot_proxy.setSpeedBase(100, 0)
-		#except Ice.Exception, e:
-		#	traceback.print_exc()
-		#	print e
+		try:
+			self.omnirobot_proxy.setSpeedBase(4000, 0, 0)
+		except Ice.Exception, e:
+			traceback.print_exc()
+			print e
 
 		# The API of python-innermodel is not exactly the same as the C++ version
 		# self.innermodel.updateTransformValues("head_rot_tilt_pose", 0, 0, 0, 1.3, 0, 0)
@@ -59,7 +68,6 @@ class SpecificWorker(GenericWorker):
 		# r = self.innermodel.transform("rgbd", z, "laser")
 		# r.printvector("d")
 		# print r[0], r[1], r[2]
-
 		return True
 
 
@@ -67,8 +75,7 @@ class SpecificWorker(GenericWorker):
 	# setPick
 	#
 	def setPick(self, myPick):
-		#
-		#subscribesToCODE
-		#
+		print(myPick.x)
+		#print(myPick.y)
+		print(myPick.z)
 		pass
-
